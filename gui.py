@@ -15,7 +15,7 @@ textRect1 = text1.get_rect()
 textRect1.center = (532, 762)
 
 
-def update(board):
+def update(board, queenIcon):
     gameDisplay = pygame.display.set_mode((716, 816), 0, 0)
     gameDisplay.fill(white)
 
@@ -41,7 +41,7 @@ def update(board):
     for i in range(8):
         for j in range(8):
             if board[i][j] == 1:
-                gameDisplay.blit(queen, (i * size + 10, j * size + 10))
+                gameDisplay.blit(queenIcon, (i * size + 10, j * size + 10))
     gameDisplay.blit(text, textRect)
     gameDisplay.blit(text1, textRect1)
     # gameDisplay = gameDisplay
