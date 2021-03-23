@@ -6,4 +6,4 @@
 * The code uses bactracking algorithm to check whether the placement of the queens threaten each other.
 * And using this algorihtm the programs find all the solutions and uses pygame to display all the moves.
 * Execute gui.py to see all the solutions and slide through all of them.
-* Excecut gui_backtracking.py to see how the computer processes all the solution.
+* Excecut gui_backtracking.py to see how the computer processes all the solution. Change the delay variable's value (in milliseconds) to your convinence.
