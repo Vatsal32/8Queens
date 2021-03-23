@@ -1,9 +1,39 @@
 import pygame
-from gui import update, white, black, button, text, textRect, text1, textRect1, clock, size, queen
+from gui import white, black, text, textRect, text1, textRect1, clock, size, queen
 
 gameDisplay = pygame.display.set_mode((716, 716), 0, 0)
 queen_red = pygame.image.load('red_queen.png')
 queen_gre = pygame.image.load('green_queen.png')
+delay = 150
+
+
+def update(board, queenIcon):
+    gameDisplay = pygame.display.set_mode((716, 716), 0, 0)
+    gameDisplay.fill(white)
+
+    cnt = 0
+    for i in range(0, boardLength):
+        for z in range(0, boardLength):
+            # check if current loop value is even
+            if cnt % 2 == 0:
+                pygame.draw.rect(gameDisplay, white, [10 + size * z, 10 + size * i, size, size])
+            else:
+                pygame.draw.rect(gameDisplay, black, [10 + size * z, 10 + size * i, size, size])
+            cnt += 1
+        # since theres an even number of squares go back one value
+        cnt -= 1
+    # Add a nice boarder
+    pygame.draw.rect(gameDisplay, black, [10, 10, boardLength * size, boardLength * size], 1)
+
+    for i in range(8):
+        for j in range(8):
+            if board[i][j] == 1:
+                gameDisplay.blit(queenIcon, (i * size + 10, j * size + 10))
+    gameDisplay.blit(text, textRect)
+    gameDisplay.blit(text1, textRect1)
+    # gameDisplay = gameDisplay
+    pygame.display.update()
+
 
 gameExit = False
 
@@ -53,7 +83,7 @@ class Queen:
 
         if x == -1 or p == -1:
             return False
-        elif x == p or y == q or (x - y) == (p - q) or (x + y) == (p + q): # check if the queens threatens each other
+        elif x == p or y == q or (x - y) == (p - q) or (x + y) == (p + q):  # check if the queens threatens each other
             return True
         else:
             return False
@@ -98,7 +128,7 @@ class Board:
             self.queens[y].set(i)
             self.get_board()
             update(self.board1, queen)
-            pygame.time.delay(50)
+            pygame.time.delay(delay)
             if self.is_safe() and self.place_queen(y + 1):
                 gameDisplay.blit(queen_gre, (self.queens[y].x * size + 10, self.queens[y].y * size + 10))
                 pygame.display.update()
@@ -110,7 +140,7 @@ class Board:
                 self.queens[y].unset()
                 self.get_board()
                 update(self.board1, queen)
-                pygame.time.delay(50)
+                pygame.time.delay(delay)
 
         return False
 
