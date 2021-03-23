@@ -1,7 +1,7 @@
 import pygame
 from gui import update, white, black, button, text, textRect, text1, textRect1, clock, size, queen
 
-gameDisplay = pygame.display.set_mode((716, 816), 0, 0)
+gameDisplay = pygame.display.set_mode((716, 716), 0, 0)
 queen_red = pygame.image.load('red_queen.png')
 queen_gre = pygame.image.load('green_queen.png')
 
@@ -26,8 +26,6 @@ for i in range(0, boardLength):
 next = pygame.Rect(97, 736, 174, 50)
 prev = pygame.Rect(445, 736, 174, 50)
 pygame.draw.rect(gameDisplay, black, [10, 10, boardLength * size, boardLength * size], 1)
-pygame.draw.rect(gameDisplay, button, next)
-pygame.draw.rect(gameDisplay, button, prev)
 gameDisplay.blit(text, textRect)
 gameDisplay.blit(text1, textRect1)
 pygame.display.update()
@@ -55,7 +53,7 @@ class Queen:
 
         if x == -1 or p == -1:
             return False
-        elif x == p or y == q or (x - y) == (p - q) or (x + y) == (p + q):
+        elif x == p or y == q or (x - y) == (p - q) or (x + y) == (p + q): # check if the queens threatens each other
             return True
         else:
             return False
@@ -100,11 +98,11 @@ class Board:
             self.queens[y].set(i)
             self.get_board()
             update(self.board1, queen)
-            # pygame.time.delay(50)
+            pygame.time.delay(50)
             if self.is_safe() and self.place_queen(y + 1):
                 gameDisplay.blit(queen_gre, (self.queens[y].x * size + 10, self.queens[y].y * size + 10))
                 pygame.display.update()
-                # pygame.time.delay(750)
+                pygame.time.delay(750)
                 gameDisplay.blit(queen, (self.queens[y].x * size + 10, self.queens[y].y * size + 10))
                 pygame.display.update()
                 return True
@@ -112,7 +110,7 @@ class Board:
                 self.queens[y].unset()
                 self.get_board()
                 update(self.board1, queen)
-                # pygame.time.delay(50)
+                pygame.time.delay(50)
 
         return False
 
@@ -134,16 +132,6 @@ if __name__ == '__main__':
     while not gameExit:
         board.place_queen(0)
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                pos = event.pos
-
-                """if next.collidepoint(pos):
-                    if solution < 91:
-                        solution += 1
-                if prev.collidepoint(pos):
-                    if solution > -1:
-                        solution -= 1"""
-
             if event.type == pygame.QUIT:
                 gameExit = True
 
